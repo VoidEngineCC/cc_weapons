@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOBAL WARFARE - GTA V ARMORY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;700&family=Electrolize&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --russia: rgba(193, 27, 23, 0.8);
+            --nato: rgba(42, 82, 190, 0.8);
+            --mec: rgba(34, 139, 34, 0.8);
+            --nac: rgba(212, 160, 23, 0.8);
+            --dark: rgba(10, 10, 18, 0.95);
+            --light: rgba(240, 240, 245, 0.95);
+            --premium: rgba(212, 175, 55, 0.8);
+            --premium-gold: linear-gradient(135deg, #ffd700, #daa520);
+            --neon-glow: 0 0 10px currentColor, 0 0 20px currentColor;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Electrolize', sans-serif;
+            background: transparent;
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--light), transparent);
+            box-shadow: var(--neon-glow);
+        }
+
+        h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            color: transparent;
+            background: linear-gradient(to right, #fff, #aaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+            letter-spacing: 2px;
+            opacity: 0.9;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .category-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .player-credits {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .credit-balance {
+            background: rgba(15, 15, 25, 0.6);
+            padding: 0.7rem 1.5rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .credit-balance i {
+            color: gold;
+        }
+
+        .premium-btn {
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(to right, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 6px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            color: #ffd700;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .premium-btn:hover {
+            background: linear-gradient(to right, rgba(212, 175, 55, 0.4), rgba(212, 175, 55, 0.2));
+            transform: translateY(-2px);
+        }
+
+        .weapons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .weapon-card {
+            background: rgba(15, 15, 25, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .weapon-card.premium::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 10px;
+            right: -25px;
+            background: var(--premium);
+            color: black;
+            font-weight: bold;
+            padding: 0.2rem 2rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .weapon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .weapon-image {
+            height: 180px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weapon-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+            transition: var(--transition);
+        }
+
+        .weapon-card:hover .weapon-image img {
+            transform: scale(1.1);
+        }
+
+        .weapon-details {
+            padding: 1.5rem;
+        }
+
+        .weapon-name {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .weapon-price {
+            font-size: 1.4rem;
+            color: gold;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .weapon-price.premium {
+            color: var(--premium);
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+
+        .weapon-type {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .weapon-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-value {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(42, 82, 190, 0.3);
+            color: #6b8cff;
+            border: 1px solid rgba(42, 82, 190, 0.5);
+        }
+
+        .buy-btn.premium {
+            background: rgba(212, 175, 55, 0.3);
+            color: #ffd700;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .premium-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        .premium-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .premium-title {
+            font-family: 'Teko', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .premium-subtitle {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+
+        /* Premium Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 30, 0.95);
+            margin: 5% auto;
+            padding: 3rem;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            animation: slideDown 0.4s;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            font-family: 'Teko', sans-serif;
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .modal-content p {
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-content ul {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+        }
+
+        .modal-content li {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .modal-content li::before {
+            content: '★';
+            color: #ffd700;
+            position: absolute;
+            left: -1.5rem;
+        }
+
+        .premium-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .premium-option {
+            background: rgba(30, 30, 40, 0.6);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--premium-gold);
+        }
+
+        .premium-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+
+        .premium-option h3 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .premium-price {
+            font-family: 'Teko', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .save {
+            display: block;
+            font-size: 0.9rem;
+            color: #6bff6b;
+            margin-top: 0.5rem;
+        }
+
+        .buy-premium {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 6px;
+            background: var(--premium-gold);
+            color: black;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+        }
+
+        .buy-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .shop-controls {
+                flex-direction: column;
+            }
+            
+            .category-buttons {
+                justify-content: center;
+            }
+            
+            .player-credits {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .weapons-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .premium-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>GTA V WEAPONS ARMORY</h1>
+            <p class="subtitle">Equip yourself with authentic GTA V weapons for your faction</p>
+        </header>
+        
+        <div class="shop-controls">
+            <div class="category-buttons">
+                <button class="category-btn active" onclick="filterWeapons('all')">All Weapons</button>
+                <button class="category-btn" onclick="filterWeapons('assault')">Assault Rifles</button>
+                <button class="category-btn" onclick="filterWeapons('sniper')">Sniper Rifles</button>
+                <button class="category-btn" onclick="filterWeapons('smg')">SMGs</button>
+                <button class="category-btn" onclick="filterWeapons('shotgun')">Shotguns</button>
+                <button class="category-btn" onclick="filterWeapons('lmg')">LMGs</button>
+                <button class="category-btn" onclick="filterWeapons('pistol')">Sidearms</button>
+                <button class="category-btn" onclick="filterWeapons('melee')">Melee</button>
+            </div>
+            
+            <div class="player-credits">
+                <div class="credit-balance">
+                    <i class="fas fa-coins"></i>
+                    <span id="credits">25,000</span>
+                </div>
+                <button class="premium-btn" onclick="showPremiumModal()">
+                    <i class="fas fa-crown"></i> Premium Armory
+                </button>
+            </div>
+        </div>
+        
+        <div class="weapons-grid" id="weapons-grid">
+            <!-- Weapons will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="premium-section">
+            <div class="premium-header">
+                <h2 class="premium-title">
+                    <i class="fas fa-crown"></i> PREMIUM WEAPONS
+                </h2>
+                <p class="premium-subtitle">
+                    Exclusive GTA V weapons available only to Premium members. Upgrade to access these high-end firearms.
+                </p>
+            </div>
+            
+            <div class="weapons-grid" id="premium-grid">
+                <!-- Premium weapons will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <footer>
+            GTA V WORLD WAR SIMULATION | FIVEM ROLEPLAY SERVER | © 2023
+        </footer>
+    </div>
+    
+    <!-- Premium Modal -->
+    <div class="modal" id="premium-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePremiumModal()">&times;</span>
+            <h2><i class="fas fa-crown"></i> PREMIUM MEMBERSHIP</h2>
+            <p>Unlock exclusive GTA V weapons and features with a Premium account:</p>
+            <ul>
+                <li>Access to 15+ premium weapons not available to regular players</li>
+                <li>Special weapon skins and customization options</li>
+                <li>Exclusive melee weapons and throwables</li>
+                <li>Priority access to special events and missions</li>
+                <li>Increased credit earnings (2x multiplier)</li>
+                <li>VIP server queue priority</li>
+            </ul>
+            <div class="premium-options">
+                <div class="premium-option">
+                    <h3>1 MONTH</h3>
+                    <div class="premium-price">$4.99</div>
+                    <button class="buy-premium" onclick="purchasePremium('monthly')">UPGRADE NOW</button>
+                </div>
+                <div class="premium-option">
+                    <h3>3 MONTHS</h3>
+                    <div class="premium-price">$12.99 <span class="save">(Save 15%)</span></div>
+                    <button class="buy-premium" onclick="purchasePremium('quarterly')">UPGRADE NOW</button>
+                </div>
+                <div class="premium-option">
+                    <h3>LIFETIME</h3>
+                    <div class="premium-price">$49.99 <span class="save">(Best Value)</span></div>
+                    <button class="buy-premium" onclick="purchasePremium('lifetime')">UPGRADE NOW</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+const weaponShopConfig = {
+    regularWeapons: {
+        "Advanced Rifle": { id: "W-AR-001" },
+        "Carbine Rifle": { id: "W-AR-002" },
+        "Heavy Sniper": { id: "W-SN-001" },
+        "SMG": { id: "W-SMG-001" },
+        "Pump Shotgun": { id: "W-SH-001" },
+        "MG": { id: "W-LMG-001" },
+        "Pistol": { id: "W-PI-001" },
+        "Knife": { id: "W-ME-001" }
+    },
+    premiumWeapons: {
+        "Special Carbine": { id: "W-AR-P01" },
+        "Marksman Rifle": { id: "W-SN-P01" },
+        "Combat PDW": { id: "W-SMG-P01" },
+        "Assault Shotgun": { id: "W-SH-P01" },
+        "Combat MG": { id: "W-LMG-P01" },
+        "AP Pistol": { id: "W-PI-P01" },
+        "Switchblade": { id: "W-ME-P01" }
+    }
+};
+    const weapons = [
+        {
+            id: "W-AR-001",
+            name: "Advanced Rifle",
+            type: "assault",
+            price: 5800,
+            image: "https://www.gtabase.com/images/gta-5/weapons/advanced-rifle.png",
+            damage: 78,
+            accuracy: 72,
+            range: 68,
+            fireRate: 88,
+            mobility: 75,
+            magSize: 30,
+            premium: false
+        },
+        {
+            id: "W-AR-002",
+            name: "Carbine Rifle",
+            type: "assault",
+            price: 5200,
+            image: "https://www.gtabase.com/images/gta-5/weapons/carbine-rifle.png",
+            damage: 75,
+            accuracy: 70,
+            range: 65,
+            fireRate: 85,
+            mobility: 78,
+            magSize: 30,
+            premium: false
+        },
+        {
+            id: "W-SN-001",
+            name: "Heavy Sniper",
+            type: "sniper",
+            price: 15000,
+            image: "https://www.gtabase.com/images/gta-5/weapons/heavy-sniper.png",
+            damage: 100,
+            accuracy: 90,
+            range: 100,
+            fireRate: 25,
+            mobility: 45,
+            magSize: 6,
+            premium: false
+        },
+        {
+            id: "W-SMG-001",
+            name: "SMG",
+            type: "smg",
+            price: 3500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/smg.png",
+            damage: 62,
+            accuracy: 68,
+            range: 52,
+            fireRate: 92,
+            mobility: 88,
+            magSize: 30,
+            premium: false
+        },
+        {
+            id: "W-SH-001",
+            name: "Pump Shotgun",
+            type: "shotgun",
+            price: 2800,
+            image: "https://www.gtabase.com/images/gta-5/weapons/pump-shotgun.png",
+            damage: 92,
+            accuracy: 58,
+            range: 38,
+            fireRate: 35,
+            mobility: 72,
+            magSize: 8,
+            premium: false
+        },
+        {
+            id: "W-LMG-001",
+            name: "MG",
+            type: "lmg",
+            price: 7500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/mg.png",
+            damage: 82,
+            accuracy: 68,
+            range: 78,
+            fireRate: 82,
+            mobility: 62,
+            magSize: 100,
+            premium: false
+        },
+        {
+            id: "W-PI-001",
+            name: "Pistol",
+            type: "pistol",
+            price: 1200,
+            image: "https://www.gtabase.com/images/gta-5/weapons/pistol.png",
+            damage: 48,
+            accuracy: 62,
+            range: 42,
+            fireRate: 68,
+            mobility: 92,
+            magSize: 12,
+            premium: false
+        },
+        {
+            id: "W-ME-001",
+            name: "Knife",
+            type: "melee",
+            price: 500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/knife.png",
+            damage: 60,
+            accuracy: 100,
+            range: 2,
+            fireRate: 95,
+            mobility: 100,
+            magSize: 1,
+            premium: false
+        }
+    ];
+
+    // Premium GTA V weapons
+    const premiumWeapons = [
+        {
+            id: "W-AR-P01",
+            name: "Special Carbine",
+            type: "assault",
+            price: 9500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/special-carbine.png",
+            damage: 82,
+            accuracy: 78,
+            range: 72,
+            fireRate: 90,
+            mobility: 80,
+            magSize: 30,
+            premium: true
+        },
+        {
+            id: "W-SN-P01",
+            name: "Marksman Rifle",
+            type: "sniper",
+            price: 18000,
+            image: "https://www.gtabase.com/images/gta-5/weapons/marksman-rifle.png",
+            damage: 92,
+            accuracy: 85,
+            range: 95,
+            fireRate: 45,
+            mobility: 55,
+            magSize: 16,
+            premium: true
+        },
+        {
+            id: "W-SMG-P01",
+            name: "Combat PDW",
+            type: "smg",
+            price: 8500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/combat-pdw.png",
+            damage: 68,
+            accuracy: 72,
+            range: 58,
+            fireRate: 95,
+            mobility: 90,
+            magSize: 30,
+            premium: true
+        },
+        {
+            id: "W-SH-P01",
+            name: "Assault Shotgun",
+            type: "shotgun",
+            price: 9500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/assault-shotgun.png",
+            damage: 88,
+            accuracy: 62,
+            range: 42,
+            fireRate: 85,
+            mobility: 75,
+            magSize: 12,
+            premium: true
+        },
+        {
+            id: "W-LMG-P01",
+            name: "Combat MG",
+            type: "lmg",
+            price: 12000,
+            image: "https://www.gtabase.com/images/gta-5/weapons/combat-mg.png",
+            damage: 88,
+            accuracy: 75,
+            range: 82,
+            fireRate: 88,
+            mobility: 68,
+            magSize: 100,
+            premium: true
+        },
+        {
+            id: "W-PI-P01",
+            name: "AP Pistol",
+            type: "pistol",
+            price: 6500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/ap-pistol.png",
+            damage: 55,
+            accuracy: 68,
+            range: 48,
+            fireRate: 85,
+            mobility: 95,
+            magSize: 18,
+            premium: true
+        },
+        {
+            id: "WEAPON_SWITCHBLADE",
+            name: "Switchblade",
+            type: "melee",
+            price: 2500,
+            image: "https://www.gtabase.com/images/gta-5/weapons/switchblade.png",
+            damage: 65,
+            accuracy: 100,
+            range: 2,
+            fireRate: 100,
+            mobility: 100,
+            magSize: 1,
+            premium: true
+        }
+    ];
+
+    // Player data
+    const player = {
+        credits: 0,
+        premium: false,
+        ownedWeapons: {}
+    };
+
+    // Create floating particles
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random properties
+            const size = Math.random() * 5 + 1;
+            const posX = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = Math.random() * 20 + 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.bottom = `-${size}px`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            // Random color based on factions
+            const colors = ['rgba(193, 27, 23, 0.5)', 'rgba(42, 82, 190, 0.5)', 
+                            'rgba(34, 139, 34, 0.5)', 'rgba(212, 160, 23, 0.5)'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            particlesContainer.appendChild(particle);
+        }
+    }
+    
+    // Filter weapons by category
+    function filterWeapons(category) {
+        // Update active button
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`.category-btn[onclick="filterWeapons('${category}')"]`).classList.add('active');
+        
+        // Filter and display weapons
+        displayWeapons(category === 'all' ? weapons : weapons.filter(w => w.type === category));
+    }
+    
+    // Display weapons in the grid
+    function displayWeapons(weaponsToDisplay = weapons) {
+        const grid = document.getElementById('weapons-grid');
+        grid.innerHTML = '';
+        
+        weaponsToDisplay.forEach(weapon => {
+            const card = document.createElement('div');
+            card.className = `weapon-card ${weapon.premium ? 'premium' : ''}`;
+            
+            // Check if weapon is owned
+            const weaponName = findWeaponNameById(weapon.id);
+            const isOwned = weaponName ? player.ownedWeapons[weaponName] : false;
+            
+            card.innerHTML = `
+                <div class="weapon-image">
+                    <img src="${weapon.image}" alt="${weapon.name}">
+                </div>
+                <div class="weapon-details">
+                    <div class="weapon-name">
+                        ${weapon.name}
+                        <div class="weapon-price ${weapon.premium ? 'premium' : ''}">
+                            <i class="fas fa-coins"></i> ${weapon.price.toLocaleString()}
+                        </div>
+                    </div>
+                    <span class="weapon-type">${getWeaponType(weapon.type)}</span>
+                    
+                    <div class="weapon-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.damage}</div>
+                                <div class="stat-label">Damage</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.accuracy}</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-ruler"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.range}</div>
+                                <div class="stat-label">Range</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.fireRate}</div>
+                                <div class="stat-label">Fire Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="buy-btn ${weapon.premium ? 'premium' : ''}" 
+                            data-weapon-id="${weapon.id}"
+                            onclick="buyWeapon('${weapon.id}')"
+                            ${isOwned ? 'disabled' : ''}
+                            ${player.credits < weapon.price ? 'disabled' : ''}
+                            ${weapon.premium && !player.premium ? 'disabled' : ''}>
+                        ${isOwned ? 'OWNED' : 
+                          weapon.premium && !player.premium ? 'PREMIUM REQUIRED' : 
+                          player.credits < weapon.price ? 'INSUFFICIENT FUNDS' : 'PURCHASE'}
+                    </button>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+    }
+    
+    // Display premium weapons
+    function displayPremiumWeapons() {
+        const grid = document.getElementById('premium-grid');
+        grid.innerHTML = '';
+        
+        premiumWeapons.forEach(weapon => {
+            // Check if weapon is owned
+            const weaponName = findWeaponNameById(weapon.id);
+            const isOwned = weaponName ? player.ownedWeapons[weaponName] : false;
+            
+            const card = document.createElement('div');
+            card.className = `weapon-card premium`;
+            
+            card.innerHTML = `
+                <div class="weapon-image">
+                    <img src="${weapon.image}" alt="${weapon.name}">
+                </div>
+                <div class="weapon-details">
+                    <div class="weapon-name">
+                        ${weapon.name}
+                        <div class="weapon-price premium">
+                            <i class="fas fa-coins"></i> ${weapon.price.toLocaleString()}
+                        </div>
+                    </div>
+                    <span class="weapon-type">${getWeaponType(weapon.type)}</span>
+                    
+                    <div class="weapon-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.damage}</div>
+                                <div class="stat-label">Damage</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.accuracy}</div>
+                                <div class="stat-label">Accuracy</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-ruler"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.range}</div>
+                                <div class="stat-label">Range</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">${weapon.fireRate}</div>
+                                <div class="stat-label">Fire Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="buy-btn premium" 
+                            data-weapon-id="${weapon.id}"
+                            onclick="buyWeapon('${weapon.id}')"
+                            ${isOwned ? 'disabled' : ''}
+                            ${player.credits < weapon.price ? 'disabled' : ''}
+                            ${!player.premium ? 'disabled' : ''}>
+                        ${isOwned ? 'OWNED' : 
+                          !player.premium ? 'PREMIUM REQUIRED' : 
+                          player.credits < weapon.price ? 'INSUFFICIENT FUNDS' : 'PURCHASE'}
+                    </button>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+    }
+    
+    // Get weapon type name
+    function getWeaponType(type) {
+        const types = {
+            'assault': 'Assault Rifle',
+            'sniper': 'Sniper Rifle',
+            'smg': 'Submachine Gun',
+            'shotgun': 'Shotgun',
+            'lmg': 'Light Machine Gun',
+            'pistol': 'Sidearm',
+            'melee': 'Melee Weapon'
+        };
+        return types[type] || 'Weapon';
+    }
+    
+    // Find weapon by ID
+    function findWeaponById(weaponId) {
+        let weapon = weapons.find(w => w.id === weaponId);
+        if (!weapon) {
+            weapon = premiumWeapons.find(w => w.id === weaponId);
+        }
+        return weapon;
+    }
+    
+    // Find weapon name by ID
+    function findWeaponNameById(weaponId) {
+        for (const [name, data] of Object.entries(weaponShopConfig.regularWeapons)) {
+            if (data.id === weaponId) return name;
+        }
+        for (const [name, data] of Object.entries(weaponShopConfig.premiumWeapons)) {
+            if (data.id === weaponId) return name;
+        }
+        return null;
+    }
+    
+    // Buy weapon function
+    function buyWeapon(weaponId) {
+        fetch(`https://${GetParentResourceName()}/buyWeapon`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({weaponId: weaponId})
+        });
+    }
+    
+    // Update credits display
+    function updateCreditsDisplay() {
+        const creditsElement = document.getElementById('credits');
+        if (creditsElement) {
+            creditsElement.textContent = player.credits.toLocaleString();
+        }
+    }
+    
+    // Show premium modal
+    function showPremiumModal() {
+        document.getElementById('premium-modal').style.display = 'block';
+    }
+    
+    // Close premium modal
+    function closePremiumModal() {
+        document.getElementById('premium-modal').style.display = 'none';
+    }
+    
+    // Purchase premium membership
+    function purchasePremium(type) {
+        fetch(`https://${GetParentResourceName()}/buyPremium`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                premiumType: type
+            })
+        }).then(resp => resp.json()).then(resp => console.log(resp));
+    }
+    
+    // Update weapon buttons based on player status
+    function updateWeaponButtons() {
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            const weaponId = button.getAttribute('data-weapon-id');
+            const weapon = findWeaponById(weaponId);
+            
+            if (weapon) {
+                const weaponName = findWeaponNameById(weaponId);
+                const isOwned = weaponName ? player.ownedWeapons[weaponName] : false;
+                
+                if (isOwned) {
+                    button.disabled = true;
+                    button.textContent = 'OWNED';
+                } else {
+                    button.disabled = player.credits < weapon.price || 
+                                    (weapon.premium && !player.premium);
+                    
+                    if (weapon.premium && !player.premium) {
+                        button.textContent = 'PREMIUM REQUIRED';
+                    } else if (player.credits < weapon.price) {
+                        button.textContent = 'INSUFFICIENT FUNDS';
+                    } else {
+                        button.textContent = 'PURCHASE';
+                    }
+                }
+            }
+        });
+    }
+    
+    // Close shop completely
+    function closeShop() {
+        document.body.style.display = 'none';
+        SetNuiFocus(false, false);
+    }
+    
+    // Handle messages from FiveM
+    window.addEventListener('message', (event) => {
+        const data = event.data;
+        
+        switch(data.type) {
+            case 'openShop':
+                document.body.style.display = data.show ? 'block' : 'none';
+                if (data.show) initializeShop();
+                break;
+                
+            case 'updatePlayerData':
+                console.log("NUI received isPremium:", data.isPremium); // helpful debug
+                player.credits = data.playerMoney;
+                player.premium = !!data.isPremium;
+                player.ownedWeapons = data.ownedWeapons || {};
+                updateCreditsDisplay();
+                updateWeaponButtons();
+                break;
+                
+            case 'closeShop':
+                document.body.style.display = 'none';
+                break;
+        }
+    });
+    
+    // Close shop when escape pressed
+    document.onkeyup = function(e) {
+        if (e.key === 'Escape') {
+            fetch(`https://${GetParentResourceName()}/closeShop`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            });
+        }
+    };
+    
+    // Initialize armory when DOM loads
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.style.display = 'none';
+        createParticles();
+        displayWeapons();
+        displayPremiumWeapons();
+        updateCreditsDisplay();
+        
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('premium-modal');
+            if (event.target == modal) {
+                closePremiumModal();
+            }
+        }
+    });
+</script>
+</body>
+</html>
